@@ -1,0 +1,36 @@
+openapi: '3.0.2'
+info:
+  title: App Clients API
+  version: '1.0'
+servers:
+  - url: https://services.bluebrix.healthcare/v1
+paths:
+  /app-clients/app-profiles:
+    get:
+      parameters:
+        - in: header
+          name: X-App-Client-Id
+          schema:
+            type: string
+            example: "123"
+          required: true
+      operationId: getAppProfile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "./app-profile.yml#/components/schemas/AppProfileResponse"  
+        '404':
+          description: App profiles not found
+          content:
+            application/json:
+              schema:
+                $ref: './common.yml#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: './common.yml#/components/schemas/ErrorResponse'
